@@ -104,15 +104,12 @@ cd SplitBasket
 dotnet restore
 ```
 3. Configure the database:
-- Update appsettings.json with your database connection string.
+- Update database using the nuget console.
 - Run migrations:
 ```sh
-dotnet ef database update
+update-database
 ```
 4. Run the application:
-``` sh
-- dotnet run
-```
 ## Future Enhancements
 
   - *Add/Remove Member’s Photo*: Allow users to upload and manage photos for group members.
