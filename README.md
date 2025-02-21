@@ -95,7 +95,7 @@ Follow these steps to set up *SplitBasket* on your local machine:
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/Himani1609/SplitBasket.git
+git clone https://github.com/DhruvShah28/Split-Basket.git
 cd SplitBasket
 ```
 
