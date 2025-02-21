@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SplitBasket.Data;
+using SplitBasket.Interfaces;
 using SplitBasket.Models;
+using SplitBasket.Services;
 
 namespace SplitBasket.Controllers
 {
@@ -14,11 +17,11 @@ namespace SplitBasket.Controllers
     [ApiController]
     public class PurchasesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPurchaseService _purchaseservice;
 
-        public PurchasesController(ApplicationDbContext context)
+        public PurchasesController(IPurchaseService context)
         {
-            _context = context;
+            _purchaseservice = context;
         }
 
         /// <summary> 
@@ -30,32 +33,16 @@ namespace SplitBasket.Controllers
         /// <example>
         /// GET: api/Purchase/List -> [{ItemId:2, DatePurchased:"2025-02-02",MemberName:"Dhruv",ItemNames:["Milk","Protein Bar"],TotalAmount:55 },{....},{....}]
         /// </example>
-        [HttpGet(template: "List")]
-        public async Task<ActionResult<IEnumerable<PurchaseHistoryDto>>> GetPurchases()
+        [HttpGet("List")]
+        public async Task<ActionResult<IEnumerable<PurchaseHistoryDto>>> ListPurchases()
         {
-            List<Purchase> purchases = await _context.Purchases
-                .Include(p => p.GroupPurchases)
-                    .ThenInclude(gp => gp.GroceryItem)
-                .Include(p => p.Member)
-                .ToListAsync();
+        
+            IEnumerable<PurchaseHistoryDto> purchaseHistoryDtos = await _purchaseservice.ListPurchases();
 
-            List<PurchaseHistoryDto> purchaseHistoryDtos = new List<PurchaseHistoryDto>();
-
-            foreach (var purchase in purchases)
-            {
-                purchaseHistoryDtos.Add(new PurchaseHistoryDto()
-                {
-                    PurchaseID = purchase.PurchaseID,
-                    DatePurchased = purchase.DatePurchased,
-                    MemberName = purchase.Member.Name,
-                    ItemNames = purchase.GroupPurchases.Select(gp => gp.GroceryItem.Name).ToList(),
-                    TotalAmount = purchase.GroupPurchases.Sum(gp => gp.GroceryItem.Quantity * gp.GroceryItem.Price)
-                });
-            }
-
-            // return 200 OK with PurchaseHistoryDtos
+           
             return Ok(purchaseHistoryDtos);
         }
+
 
 
         /// <summary> 
@@ -69,26 +56,13 @@ namespace SplitBasket.Controllers
         [HttpGet("Find/{id}")]
         public async Task<ActionResult<PurchaseHistoryDto>> FindPurchase(int id)
         {
-            var purchase = await _context.Purchases
-                .Include(p => p.GroupPurchases)
-                    .ThenInclude(gp => gp.GroceryItem)
-                .Include(p => p.Member)
-                .FirstOrDefaultAsync(p => p.PurchaseID == id);
+            var purchaseHistoryDto = await _purchaseservice.FindPurchase(id);
 
-            if (purchase == null)
+            if (purchaseHistoryDto == null)
             {
-                return NotFound();
+                return NotFound($"Purchase with ID {id} doesn't exist.");
             }
-
-            var purchaseHistoryDto = new PurchaseHistoryDto()
-            {
-                PurchaseID = purchase.PurchaseID,
-                DatePurchased = purchase.DatePurchased,
-                MemberName = purchase.Member.Name,
-                ItemNames = purchase.GroupPurchases.Select(gp => gp.GroceryItem.Name).ToList(),
-                TotalAmount = purchase.GroupPurchases.Sum(gp => gp.GroceryItem.Quantity * gp.GroceryItem.Price)
-            };
-
+            
             return Ok(purchaseHistoryDto);
         }
 
@@ -104,48 +78,26 @@ namespace SplitBasket.Controllers
         /// api/Purchases/Update/1 -> Updates a purchase of id 1
         /// </example>
         [HttpPut("Update/{id}")]
+        [Authorize]
         public async Task<IActionResult> PutPurchase(int id, UpdPurchaseDto aupPurchaseDto)
         {
             if (id != aupPurchaseDto.PurchaseID)
             {
-                return BadRequest("The ID in the URL does not match the ID in the body.");
+                return BadRequest(new { message = "Purchase ID mismatch." });
             }
 
-            var memberExists = await _context.Members
-                .AnyAsync(m => m.MemberId == aupPurchaseDto.MemberId);
-            if (!memberExists)
+            ServiceResponse response = await _purchaseservice.UpdatePurchase(id, aupPurchaseDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return BadRequest("Invalid MemberId.");
+                return NotFound(new { error = "Purchase not found." });
             }
-
-            var purchase = await _context.Purchases.FindAsync(id);
-            if (purchase == null)
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                return NotFound("Purchase not found.");
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the purchase." });
             }
 
-            purchase.DatePurchased = aupPurchaseDto.DatePurchased;
-            purchase.MemberId = aupPurchaseDto.MemberId;
-
-            _context.Entry(purchase).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PurchaseExists(id))
-                {
-                    return NotFound("Purchase not found after concurrency check.");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok($"Purchase {id} updated successfully.");
+            return Ok(new { message = $"Purchase with ID {id} updated successfully." });
         }
 
         /// <summary>
@@ -157,35 +109,22 @@ namespace SplitBasket.Controllers
         /// api/Purchases/Add -> Add a purchase
         /// </example>
         [HttpPost("Add")]
-        public async Task<ActionResult> PostPurchase(AddPurchaseDto aupPurchaseDto)
+        public async Task<ActionResult> AddPurchase(AddPurchaseDto aupPurchaseDto)
         {
-            var memberExists = await _context.Members
-                .AnyAsync(m => m.MemberId == aupPurchaseDto.MemberId);
+            
+            ServiceResponse response = await _purchaseservice.AddPurchase(aupPurchaseDto);
 
-            if (!memberExists)
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                return BadRequest("Invalid MemberId.");
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the purchase." });
             }
 
-            var purchase = new Purchase
+           
+            return CreatedAtAction("FindPurchase", new { id = response.CreatedId }, new
             {
-                DatePurchased = aupPurchaseDto.DatePurchased,
-                MemberId = aupPurchaseDto.MemberId,
-            };
-
-            _context.Purchases.Add(purchase);
-            await _context.SaveChangesAsync();
-
-            var responseDto = new
-            {
-                message = $"Purchase added successfully for member with ID {aupPurchaseDto.MemberId}.",
-                purchaseId = purchase.PurchaseID,
-                memberId = purchase.MemberId,
-                datePurchased = purchase.DatePurchased
-            };
-
-            return CreatedAtAction(nameof(FindPurchase), new { id = purchase.PurchaseID },
-            new { message = $"Purchase {purchase.PurchaseID} added successfully.", purchaseId = purchase.PurchaseID });
+                message = $"Purchase added successfully with ID {response.CreatedId}",
+                purchaseId = response.CreatedId
+            });
         }
 
         /// <summary>
@@ -197,48 +136,52 @@ namespace SplitBasket.Controllers
         /// api/Purchases/Delete/1 -> Delete purchase of id 1
         /// </example>
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletePurchase(int id)
         {
-            var purchase = await _context.Purchases.FindAsync(id);
-            if (purchase == null)
+           
+            ServiceResponse response = await _purchaseservice.DeletePurchase(id);
+
+            
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Purchase not found.");
+                return NotFound(new { error = "Purchase not found." });
+            }
+           
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the purchase." });
             }
 
-            _context.Purchases.Remove(purchase);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Purchase {id} deleted successfully.");
+            return Ok(new { message = $"Purchase with ID {id} deleted successfully." });
         }
 
-        private bool PurchaseExists(int id)
-        {
-            return _context.Purchases.Any(e => e.PurchaseID == id);
-        }
+
+
 
         /// <summary>
         /// Retrieves a list of item names purchased by a specific member.
         /// </summary>
         /// <param name="memberId">The ID of the member whose purchased items are to be listed.</param>
         /// <returns>A list of grocery item names purchased by the specified member, or a NotFound status if the member doesn't exist.</returns>
-        [HttpGet("GetPurchasedItemsByMember/{memberId}")]
-        public async Task<ActionResult<IEnumerable<string>>> GetPurchasesByMember(int memberId)
-        {
-            var memberExists = await _context.Members
-                .AnyAsync(m => m.MemberId == memberId);
+        //[HttpGet("GetPurchasedItemsByMember/{memberId}")]
+        //public async Task<ActionResult<IEnumerable<string>>> GetPurchasesByMember(int memberId)
+        //{
+        //    var memberExists = await _context.Members
+        //        .AnyAsync(m => m.MemberId == memberId);
 
-            if (!memberExists)
-            {
-                return NotFound($"Member with ID {memberId} not found.");
-            }
+        //    if (!memberExists)
+        //    {
+        //        return NotFound($"Member with ID {memberId} not found.");
+        //    }
 
-            var itemNames = await _context.Purchases
-                .Where(p => p.MemberId == memberId)
-                .SelectMany(p => p.GroupPurchases)
-                .Select(gp => gp.GroceryItem.Name)
-                .ToListAsync();
+        //    var itemNames = await _context.Purchases
+        //        .Where(p => p.MemberId == memberId)
+        //        .SelectMany(p => p.GroupPurchases)
+        //        .Select(gp => gp.GroceryItem.Name)
+        //        .ToListAsync();
 
-            return Ok(itemNames);
-        }
+        //    return Ok(itemNames);
+        //}
     }
 }

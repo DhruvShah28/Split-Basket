@@ -1,0 +1,44 @@
+﻿@model SplitBasket.Models.ViewModels.AddItem
+
+<h2>Add Grocery Item</h2>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="AddItemDto.Name" class="control-label"></label>
+        <input asp-for="AddItemDto.Name" class="form-control" />
+        <span asp-validation-for="AddItemDto.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddItemDto.Quantity" class="control-label"></label>
+        <input asp-for="AddItemDto.Quantity" class="form-control" type="number" />
+        <span asp-validation-for="AddItemDto.Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AddItemDto.UnitPrice" class="control-label"></label>
+        <input asp-for="AddItemDto.UnitPrice" class="form-control" type="number" />
+        <span asp-validation-for="AddItemDto.UnitPrice" class="text-danger"></span>
+    </div>
+
+    <!-- Dropdown for selecting Member -->
+    <div class="form-group">
+        <label for="MemberId">Purchased By</label>
+        <select asp-for="MemberId" class="form-control" required>
+            <option value="">-- Select a Member --</option>
+            @foreach (var member in ViewBag.Members as IEnumerable<SplitBasket.Models.MemberDto>)
+            {
+                <option value="@member.MemberId">@member.Name</option>
+            }
+        </select>
+        <span asp-validation-for="MemberId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary mt-4">Add Grocery Item</button>
+    </div>
+</form>
+
+<div class="form-group">
+    <a asp-action="List" class="btn btn-secondary mt-3">Back to List</a>
+</div>

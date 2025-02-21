@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SplitBasket.Data;
 using SplitBasket.Data.Migrations;
+using SplitBasket.Interfaces;
 using SplitBasket.Models;
+using SplitBasket.Services;
 
 namespace SplitBasket.Controllers
 {
@@ -15,12 +17,13 @@ namespace SplitBasket.Controllers
     [ApiController]
     public class GroupPurchasesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGroupPurchaseService _grouppurchaseservice;
 
-        public GroupPurchasesController(ApplicationDbContext context)
+        public GroupPurchasesController(IGroupPurchaseService context)
         {
-            _context = context;
+            _grouppurchaseservice = context;
         }
+
 
         /// <summary>
         /// Retrieves a list of all group purchases, including related grocery items and purchase details.
@@ -32,23 +35,12 @@ namespace SplitBasket.Controllers
         /// <example>
         /// GET /api/GroupPurchases/List -> [{"GroupPurchaseId": 1,"GroceryItemId": 2,"PurchaseId": 3,"IsBought": true},{"GroupPurchaseId": 2,"GroceryItemId": 1,"PurchaseId": null,"IsBought": false} ]
         [HttpGet("List")]
-        public async Task<ActionResult<IEnumerable<GroupPurchaseDto>>> GetGroupPurchases()
+        public async Task<ActionResult<IEnumerable<GroupPurchaseDto>>> ListGroupPurchases()
         {
-            var groupPurchases = await _context.GroupPurchases
-                .Where(gp => gp.PurchaseId.HasValue)
-                .Include(gp => gp.GroceryItem)
-                .Include(gp => gp.Purchase)
-                .Select(gp => new GroupPurchaseDto
-                {
-                    GroupPurchaseId = gp.GroupPurchaseId,
-                    GroceryItemId = gp.GroceryItemId,
-                    PurchaseId = gp.PurchaseId,
-                    IsBought = gp.PurchaseId.HasValue
-                })
-                .ToListAsync();
-
-            return Ok(groupPurchases);
+            IEnumerable<GroupPurchaseDto> groupPurchaseDtos = await _grouppurchaseservice.ListGroupPurchases();
+            return Ok(groupPurchaseDtos);
         }
+
 
         /// <summary>
         /// Retrieves details of a single group purchase by its ID.
@@ -62,29 +54,20 @@ namespace SplitBasket.Controllers
         /// GET /api/GroupPurchases/Find/1 -> {"GroupPurchaseId": 1,"GroceryItemId": 2,"PurchaseId": 3,"IsBought": true}
         /// </example>
         [HttpGet("Find/{id}")]
-        public async Task<ActionResult<GroupPurchaseDto>> GetGroupPurchase(int id)
+        public async Task<ActionResult<GroupPurchaseDto>> FindGroupPurchase(int id)
         {
-            var groupPurchase = await _context.GroupPurchases
-                .Where(gp => gp.PurchaseId.HasValue)
-                .Include(gp => gp.GroceryItem)
-                .Include(gp => gp.Purchase)
-                .Where(gp => gp.GroupPurchaseId == id)
-                .Select(gp => new GroupPurchaseDto
-                {
-                    GroupPurchaseId = gp.GroupPurchaseId,
-                    GroceryItemId = gp.GroceryItemId,
-                    PurchaseId = gp.PurchaseId,
-                    IsBought = gp.PurchaseId.HasValue
-                })
-                .FirstOrDefaultAsync();
+            var groupPurchase = await _grouppurchaseservice.FindGroupPurchase(id);
 
             if (groupPurchase == null)
             {
-                return NotFound(new { message = $"Group purchase with ID {id} not found or Item is not Purchased." });
+                return NotFound($"Group purchase with ID {id} doesn't exist");
             }
-
-            return Ok(groupPurchase);
+            else
+            {
+                return Ok(groupPurchase);
+            }
         }
+
 
         /// <summary>
         /// Updates an existing group purchase.
@@ -99,50 +82,27 @@ namespace SplitBasket.Controllers
         /// PUT /api/GroupPurchases/Update/1 -> Updates the group purchase with group purchase id 1
         /// </example>
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> PutGroupPurchase(int id, GroupPurchaseDto groupPurchaseDto)
+        public async Task<IActionResult> UpdateGroupPurchase(int id, GroupPurchaseDto groupPurchaseDto)
         {
             if (id != groupPurchaseDto.GroupPurchaseId)
             {
                 return BadRequest(new { message = "Group purchase ID mismatch." });
             }
 
-            var groupPurchase = await _context.GroupPurchases.FindAsync(id);
+            ServiceResponse response = await _grouppurchaseservice.UpdateGroupPurchase(id, groupPurchaseDto);
 
-            if (groupPurchase == null)
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = $"Group purchase with ID {id} not found." });
+                return NotFound(new { error = "Group purchase not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the group purchase." });
             }
 
-            // Check if GroceryItemId exists
-            var groceryItemExists = await _context.GroceryItems.AnyAsync(g => g.ItemId == groupPurchaseDto.GroceryItemId);
-            if (!groceryItemExists)
-            {
-                return BadRequest(new { message = $"Grocery item with ID {groupPurchaseDto.GroceryItemId} not found." });
-            }
-
-            groupPurchase.GroceryItemId = groupPurchaseDto.GroceryItemId;
-            groupPurchase.PurchaseId = groupPurchaseDto.PurchaseId;
-
-            _context.Entry(groupPurchase).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupPurchaseExists(id))
-                {
-                    return NotFound(new { message = $"Group purchase with ID {id} not found." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok($"Group purchase with ID {id} updated successfully.");
+            return Ok(new { message = $"Group purchase with ID {id} updated successfully." });
         }
+
 
 
 
@@ -158,39 +118,22 @@ namespace SplitBasket.Controllers
         /// POST /api/GroupPurchases/Add -> Adds group purchase
         /// </example>
         [HttpPost("Add")]
-        public async Task<ActionResult<GroupPurchaseDto>> PostGroupPurchase(AddGroupPurchaseDto groupPurchaseDto)
+        public async Task<ActionResult> AddGroupPurchase(AddGroupPurchaseDto groupPurchaseDto)
         {
-            if (groupPurchaseDto == null)
+            ServiceResponse response = await _grouppurchaseservice.AddGroupPurchase(groupPurchaseDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                return BadRequest(new { message = "Invalid group purchase data." });
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the group purchase." });
             }
 
-            // Check if GroceryItemId exists
-            var groceryItemExists = await _context.GroceryItems.AnyAsync(g => g.ItemId == groupPurchaseDto.GroceryItemId);
-            if (!groceryItemExists)
+            return CreatedAtAction("FindGroupPurchase", new { id = response.CreatedId }, new
             {
-                return BadRequest(new { message = $"Grocery item with ID {groupPurchaseDto.GroceryItemId} not found." });
-            }
-
-            var groupPurchase = new GroupPurchase
-            {
-                GroceryItemId = groupPurchaseDto.GroceryItemId,
-                PurchaseId = groupPurchaseDto.PurchaseId
-            };
-
-            _context.GroupPurchases.Add(groupPurchase);
-            await _context.SaveChangesAsync();
-
-            var responseDto = new AddGroupPurchaseDto
-            {
-                GroceryItemId = groupPurchase.GroceryItemId,
-                PurchaseId = groupPurchase.PurchaseId,
-                IsBought = groupPurchase.PurchaseId.HasValue
-            };
-
-            return CreatedAtAction(nameof(GetGroupPurchase), new { id = groupPurchase.GroupPurchaseId }, 
-                new { message = $"Group Purchase {groupPurchase.GroupPurchaseId} added successfully."});
+                message = $"Group purchase added successfully with ID {response.CreatedId}",
+                groupPurchaseId = response.CreatedId
+            });
         }
+
 
 
         /// <summary>
@@ -207,104 +150,19 @@ namespace SplitBasket.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteGroupPurchase(int id)
         {
-            var groupPurchase = await _context.GroupPurchases.FindAsync(id);
-            if (groupPurchase == null)
+            ServiceResponse response = await _grouppurchaseservice.DeleteGroupPurchase(id);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = $"Group purchase with ID {id} not found." });
+                return NotFound(new { error = "Group purchase not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the group purchase." });
             }
 
-            _context.GroupPurchases.Remove(groupPurchase);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Group purchase of id {id} deleted successfully.");
+            return Ok(new { message = $"Group purchase with ID {id} deleted successfully." });
         }
 
-
-
-        /// <summary>
-        /// Links an existing GroceryItem to a Purchase.
-        /// </summary>
-        /// <param name="groceryItemId">The ID of the Grocery Item.</param>
-        /// <param name="purchaseId">The ID of the Purchase.</param>
-        /// <returns>
-        /// Returns a success message if the GroceryItem is linked to the Purchase.
-        /// Returns a 404 if the Grocery Item or Purchase is not found.
-        /// Returns a 400 if the Grocery Item is already linked to the Purchase.
-        /// </returns>
-        /// <example>
-        /// api/GroupPurchases/LinkGroceryItem?groceryItemId=1&purchaseId=2 -> Links Grocery Item 1 to Purchase 2.
-        /// </example>
-        [HttpPost("LinkGroceryItem")]
-        public async Task<IActionResult> LinkGroceryItemToPurchase(int groceryItemId, int purchaseId)
-        {
-            var groceryItem = await _context.GroceryItems.FindAsync(groceryItemId);
-            var purchase = await _context.Purchases.FindAsync(purchaseId);
-
-            if (groceryItem == null || purchase == null)
-            {
-                return NotFound("Grocery Item or Purchase not found.");
-            }
-
-            var existingLink = await _context.GroupPurchases
-                .FirstOrDefaultAsync(gp => gp.GroceryItemId == groceryItemId && gp.PurchaseId == purchaseId);
-
-            if (existingLink != null)
-            {
-                return BadRequest("Grocery Item is already linked to this Purchase.");
-            }
-
-            var groupPurchase = new GroupPurchase
-            {
-                GroceryItemId = groceryItemId,
-                PurchaseId = purchaseId
-            };
-
-            _context.GroupPurchases.Add(groupPurchase);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Grocery Item {groceryItemId} linked to Purchase {purchaseId}.");
-        }
-
-
-
-
-
-
-        /// <summary>
-        /// Unlinks an existing GroceryItem from a Purchase.
-        /// </summary>
-        /// <param name="groceryItemId">The ID of the Grocery Item.</param>
-        /// <param name="purchaseId">The ID of the Purchase.</param>
-        /// <returns>
-        /// Returns a success message if the GroceryItem is unlinked from the Purchase.
-        /// Returns a 404 if the Grocery Item or Purchase is not found.
-        /// Returns a 404 if the Grocery Item is not linked to the Purchase.
-        /// </returns>
-        /// <example>
-        /// api/GroupPurchases/UnlinkGroceryItem?groceryItemId=1&purchaseId=2 -> Unlinks Grocery Item 1 from Purchase 2.
-        /// </example>
-        [HttpDelete("UnlinkGroceryItem")]
-        public async Task<IActionResult> UnlinkGroceryItemFromPurchase(int groceryItemId, int purchaseId)
-        {
-            var groupPurchase = await _context.GroupPurchases
-                .FirstOrDefaultAsync(gp => gp.GroceryItemId == groceryItemId && gp.PurchaseId == purchaseId);
-
-            if (groupPurchase == null)
-            {
-                return NotFound("Grocery Item is not linked to this Purchase.");
-            }
-
-            _context.GroupPurchases.Remove(groupPurchase);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Grocery Item {groceryItemId} unlinked from Purchase {purchaseId}.");
-        }
-
-
-
-        private bool GroupPurchaseExists(int id)
-        {
-            return _context.GroupPurchases.Any(e => e.GroupPurchaseId == id);
-        }
     }
 }

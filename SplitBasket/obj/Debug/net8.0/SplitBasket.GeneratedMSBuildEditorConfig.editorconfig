@@ -17,47 +17,107 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SplitBasket
 build_property.RootNamespace = SplitBasket
-build_property.ProjectDir = D:\Web_Development\SplitBasket\SplitBasket\
+build_property.ProjectDir = C:\Users\dhruv\Desktop\SplitBasket\SplitBasket\SplitBasket\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Web_Development\SplitBasket\SplitBasket
+build_property.MSBuildProjectDirectory = C:\Users\dhruv\Desktop\SplitBasket\SplitBasket\SplitBasket
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Home/Index.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/GroceryItemsPage/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvY2VyeUl0ZW1zUGFnZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/GroceryItemsPage/ConfirmDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvY2VyeUl0ZW1zUGFnZVxDb25maXJtRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/GroceryItemsPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvY2VyeUl0ZW1zUGFnZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/GroceryItemsPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvY2VyeUl0ZW1zUGFnZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/GroceryItemsPage/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvY2VyeUl0ZW1zUGFnZVxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Home/Privacy.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Shared/Error.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/MembersPage/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyc1BhZ2VcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/MembersPage/ConfirmDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyc1BhZ2VcQ29uZmlybURlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/MembersPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyc1BhZ2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/MembersPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyc1BhZ2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/MembersPage/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyc1BhZ2VcTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/PurchasesPage/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VzUGFnZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/PurchasesPage/ConfirmDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VzUGFnZVxDb25maXJtRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/PurchasesPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VzUGFnZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/PurchasesPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VzUGFnZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/PurchasesPage/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VzUGFnZVxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/_ViewImports.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/_ViewStart.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Web_Development/SplitBasket/SplitBasket/Views/Shared/_Layout.cshtml]
+[C:/Users/dhruv/Desktop/SplitBasket/SplitBasket/SplitBasket/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-8njuezumn1

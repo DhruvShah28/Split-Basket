@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SplitBasket.Models.MemberDto>
+
+@{
+    ViewData["Title"] = "Member List";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <a asp-action="Add" class="btn btn-primary">Add New Member</a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Amount Owed</th>
+                <th>Amount Paid</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.MemberId</td>
+                    <td>@member.Name</td>
+                    <td>@member.AmountOwed</td>
+                    <td>@member.AmountPaid</td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Details", "MembersPage", new { id = member.MemberId })">View Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="@Url.Action("Edit", "MembersPage", new { id = member.MemberId })">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "MembersPage", new { id = member.MemberId })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

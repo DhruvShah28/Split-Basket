@@ -9265,19 +9265,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\himan\\.nuget\\packages\\": {}
+    "C:\\Users\\dhruv\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Web_Development\\SplitBasket\\SplitBasket\\SplitBasket.csproj",
+      "projectUniqueName": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\SplitBasket.csproj",
       "projectName": "SplitBasket",
-      "projectPath": "D:\\Web_Development\\SplitBasket\\SplitBasket\\SplitBasket.csproj",
-      "packagesPath": "C:\\Users\\himan\\.nuget\\packages\\",
-      "outputPath": "D:\\Web_Development\\SplitBasket\\SplitBasket\\obj\\",
+      "projectPath": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\SplitBasket.csproj",
+      "packagesPath": "C:\\Users\\dhruv\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\himan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dhruv\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

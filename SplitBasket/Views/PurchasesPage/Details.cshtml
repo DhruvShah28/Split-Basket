@@ -1,0 +1,38 @@
+﻿@model SplitBasket.Models.PurchaseHistoryDto
+
+@{
+    ViewData["Title"] = "Purchase Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Purchase Info -->
+<div>
+    <strong>Purchase ID:</strong> @Model.PurchaseID
+</div>
+<div>
+    <strong>Member Name:</strong> @Model.MemberName
+</div>
+<div>
+    <strong>Date Purchased:</strong> @Model.DatePurchased.ToString("yyyy-MM-dd")
+</div>
+<div>
+    <strong>Items Purchased:</strong>
+    <ul>
+        @foreach (var itemName in Model.ItemNames)
+        {
+            <li>@itemName</li>
+        }
+    </ul>
+</div>
+<div>
+    <strong>Total Amount:</strong> @Model.TotalAmount.ToString("C")
+</div>
+
+<hr />
+
+<a asp-action="List" class="btn btn-primary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.PurchaseID" class="btn btn-secondary">Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.PurchaseID" class="btn btn-danger">Delete</a>
+
+<hr />

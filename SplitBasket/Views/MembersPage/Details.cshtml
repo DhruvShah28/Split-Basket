@@ -1,0 +1,46 @@
+﻿@model SplitBasket.Models.MemberDto
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Member Info -->
+<div>
+    <strong>Id:</strong> @Model.MemberId
+</div>
+<div>
+    <strong>Name:</strong> @Model.Name
+</div>
+<div>
+    <strong>Amount Owed:</strong> @Model.AmountOwed
+</div>
+<div>
+    <strong>Amount Paid:</strong> @Model.AmountPaid
+</div>
+
+<hr />
+
+<a asp-action="List" class="btn btn-primary"> Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.MemberId" class="btn btn-secondary">Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.MemberId" class="btn btn-danger">Delete</a>
+
+<hr />
+
+<!-- Grocery Items Purchased by the Member -->
+<h3>Grocery Items Purchased:</h3>
+<ul>
+    @if (ViewBag.GroceryItems != null)
+    {
+        foreach (var itemName in ViewBag.GroceryItems)
+        {
+            <li>@itemName</li>
+        }
+    }
+    else
+    {
+        <li>No grocery items found for this member.</li>
+    }
+</ul>
+

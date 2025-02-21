@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SplitBasket.styles.css" asp-append-version="true" />
+    <style>
+        .nav-link:hover{
+            color: #0d6efd !important;
+        }
+    </style>
+
 </head>
 <body>
-    <header>
+    <header style="background-color: white">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SplitBasket</a>
@@ -28,6 +34,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/swagger" target="_blank">Swagger UI</a> 
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MembersPage" asp-action="List">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="GroceryItemsPage" asp-action="List">Grocery Items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PurchasesPage" asp-action="List">Purchases</a>
+                        </li>
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -40,7 +56,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style="background-color: white">
         <div class="container">
             &copy; 2025 - SplitBasket - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

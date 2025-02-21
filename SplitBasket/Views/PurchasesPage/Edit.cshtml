@@ -1,0 +1,35 @@
+﻿@model SplitBasket.Models.UpdPurchaseDto
+
+<h2>Edit Purchase</h2>
+
+<form asp-action="Edit" asp-route-id="@Model.PurchaseID" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="PurchaseID" />
+
+    <div class="form-group">
+        <label asp-for="DatePurchased" class="control-label">Date Purchased</label>
+        <input asp-for="DatePurchased" class="form-control" type="date" />
+        <span asp-validation-for="DatePurchased" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberId" class="control-label">Member</label>
+        <select asp-for="MemberId" class="form-control">
+            @foreach (var member in ViewBag.Members as IEnumerable<SplitBasket.Models.MemberDto>)
+            {
+                <option value="@member.MemberId">
+                    @member.Name
+                </option>
+            }
+        </select>
+        <span asp-validation-for="MemberId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
+    </div>
+
+    <div class="form-group">
+        <a asp-action="Details" asp-route-id="@Model.PurchaseID" class="btn btn-secondary mt-3">Back to Details</a>
+    </div>
+</form>

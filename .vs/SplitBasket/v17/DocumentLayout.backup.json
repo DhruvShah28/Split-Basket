@@ -1,50 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Web_Development\\SplitBasket\\",
+  "WorkspaceRootPath": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\controllers\\groceryitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\controllers\\groceryitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\groceryitemspage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\groceryitemspage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\groceryitemspage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\groceryitemspage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.AspNetUsers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.Members.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\controllers\\grouppurchasescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\controllers\\grouppurchasescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.GroupPurchases.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.Purchases.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.GroceryItems.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\controllers\\purchasescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\controllers\\purchasescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\memberspage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\memberspage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\models\\grouppurchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\models\\grouppurchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\memberspage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\memberspage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\models\\purchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\models\\purchase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\purchasespage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\purchasespage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|d:\\web_development\\splitbasket\\splitbasket\\models\\groceryitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\models\\groceryitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|c:\\users\\dhruv\\desktop\\splitbasket\\splitbasket\\splitbasket\\views\\purchasespage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B9D5AC32-6AEE-4F02-B26C-9CCF1767B82D}|SplitBasket\\SplitBasket.csproj|solutionrelative:splitbasket\\views\\purchasespage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,71 +54,52 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "GroceryItem.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\GroceryItem.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Models\\GroceryItem.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\GroceryItem.cs",
-              "RelativeToolTip": "SplitBasket\\Models\\GroceryItem.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAcwDcAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T21:27:42.902Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GroceryItemsController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\GroceryItemsController.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Controllers\\GroceryItemsController.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\GroceryItemsController.cs*",
-              "RelativeToolTip": "SplitBasket\\Controllers\\GroceryItemsController.cs*",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAgwCEAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T21:22:44.707Z",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-21T20:26:20.654Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Purchase.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\Purchase.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Models\\Purchase.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\Purchase.cs",
-              "RelativeToolTip": "SplitBasket\\Models\\Purchase.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAIwCwAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T20:45:16.577Z",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAkwA8AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-21T20:24:27.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Member.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\Member.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Models\\Member.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\Member.cs",
-              "RelativeToolTip": "SplitBasket\\Models\\Member.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwCEAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T20:23:55.587Z",
+              "DocumentIndex": 4,
+              "Title": "dbo.AspNetUsers [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.AspNetUsers.sql",
+              "ToolTip": "dbo.AspNetUsers [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-21T20:13:53.092Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "GroupPurchase.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\GroupPurchase.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Models\\GroupPurchase.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Models\\GroupPurchase.cs",
-              "RelativeToolTip": "SplitBasket\\Models\\GroupPurchase.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAowDYAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T18:50:03Z",
+              "DocumentIndex": 6,
+              "Title": "dbo.GroupPurchases [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.GroupPurchases.sql",
+              "ToolTip": "dbo.GroupPurchases [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-21T20:07:55.417Z",
               "EditorCaption": ""
             },
             {
@@ -128,77 +109,103 @@
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.GroceryItems.sql",
               "ToolTip": "dbo.GroceryItems [Data]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-07T18:48:12.715Z",
+              "WhenOpened": "2025-02-21T20:07:45.874Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "dbo.Purchases [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.Purchases.sql",
-              "ToolTip": "dbo.Purchases [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-07T18:48:02.582Z",
-              "EditorCaption": ""
+              "DocumentIndex": 11,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\PurchasesPage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\PurchasesPage\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\PurchasesPage\\Edit.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\PurchasesPage\\Edit.cshtml",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAACAAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:42:48.002Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Members [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.Members.sql",
-              "ToolTip": "dbo.Members [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-07T18:47:55.505Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\PurchasesPage\\Add.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\PurchasesPage\\Add.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\PurchasesPage\\Add.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\PurchasesPage\\Add.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACgAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:42:35.576Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "dbo.GroupPurchases [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.GroupPurchases.sql",
-              "ToolTip": "dbo.GroupPurchases [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-07T18:47:33.273Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GroupPurchasesController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\GroupPurchasesController.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Controllers\\GroupPurchasesController.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\GroupPurchasesController.cs",
-              "RelativeToolTip": "SplitBasket\\Controllers\\GroupPurchasesController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwHgAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T18:34:47.76Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PurchasesController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\PurchasesController.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Controllers\\PurchasesController.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\PurchasesController.cs",
-              "RelativeToolTip": "SplitBasket\\Controllers\\PurchasesController.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAIwLYAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T18:34:17.91Z",
+              "DocumentIndex": 3,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\GroceryItemsPage\\Add.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\GroceryItemsPage\\Add.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\GroceryItemsPage\\Add.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\GroceryItemsPage\\Add.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACoAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:42:14.781Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MembersController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\MembersController.cs",
-              "RelativeDocumentMoniker": "SplitBasket\\Controllers\\MembersController.cs",
-              "ToolTip": "D:\\Web_Development\\SplitBasket\\SplitBasket\\Controllers\\MembersController.cs",
-              "RelativeToolTip": "SplitBasket\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAIwL4AAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T18:32:36.692Z",
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\GroceryItemsPage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\GroceryItemsPage\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\GroceryItemsPage\\Edit.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\GroceryItemsPage\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:42:03.719Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "dbo.Members [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_SplitBasket_3e5f5fc5_9642_4400_80ff_987f01cc0fc6/True/SqlTable/dbo.Members.sql",
+              "ToolTip": "dbo.Members [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-21T20:13:47.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\MembersPage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\MembersPage\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\MembersPage\\Edit.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\MembersPage\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:41:46.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\MembersPage\\Add.cshtml",
+              "RelativeDocumentMoniker": "SplitBasket\\Views\\MembersPage\\Add.cshtml",
+              "ToolTip": "C:\\Users\\dhruv\\Desktop\\SplitBasket\\SplitBasket\\SplitBasket\\Views\\MembersPage\\Add.cshtml",
+              "RelativeToolTip": "SplitBasket\\Views\\MembersPage\\Add.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-19T00:40:25.143Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
             }
           ]
         }

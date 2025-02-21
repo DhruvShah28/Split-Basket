@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SplitBasket.Models.PurchaseHistoryDto>
+
+@{
+    ViewData["Title"] = "Purchase List";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <a asp-action="Add" class="btn btn-primary">Add New Purchase</a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Purchase ID</th>
+                <th>Member Name</th>
+                <th>Date Purchased</th>
+                <th>Items Purchased</th>
+                <th>Total Amount</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var purchase in Model)
+            {
+                <tr>
+                    <td>@purchase.PurchaseID</td>
+                    <td>@purchase.MemberName</td>
+                    <td>@purchase.DatePurchased.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (purchase.ItemNames != null && purchase.ItemNames.Any())
+                        {
+                            <ul>
+                                @foreach (var itemName in purchase.ItemNames)
+                                {
+                                    <li>@itemName</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No items purchased</p>
+                        }
+                    </td>
+                    <td>@purchase.TotalAmount.ToString("C")</td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Details", "PurchasesPage", new { id = purchase.PurchaseID })">View Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="@Url.Action("Edit", "PurchasesPage", new { id = purchase.PurchaseID })">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "PurchasesPage", new { id = purchase.PurchaseID })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

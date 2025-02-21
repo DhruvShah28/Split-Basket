@@ -2,8 +2,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SplitBasket.Data;
+using SplitBasket.Interfaces;
+using SplitBasket.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+// Associate service interfaces with their implementations
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IGroceryItemService, GroceryItemService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+builder.Services.AddScoped<IGroupPurchaseService, GroupPurchaseService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -17,7 +27,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllersWithViews();
+
+
+
 
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();

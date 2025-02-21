@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
 using SplitBasket.Data;
+using SplitBasket.Interfaces;
 using SplitBasket.Models;
+using SplitBasket.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SplitBasket.Controllers
 {
@@ -15,11 +18,11 @@ namespace SplitBasket.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMemberService _memberservice;
 
-        public MembersController(ApplicationDbContext context)
+        public MembersController(IMemberService context)
         {
-            _context = context;
+            _memberservice = context;
         }
 
         /// <summary>
@@ -35,37 +38,8 @@ namespace SplitBasket.Controllers
         [HttpGet("List")]
         public async Task<ActionResult<IEnumerable<MemberDto>>> ListMembers()
         {
-            var totalMembers = await _context.Members.CountAsync();
-            if (totalMembers == 0)
-            {
-                return NotFound("No members found.");
-            }
-
-            var members = await _context.Members
-                .Include(m => m.Purchases)
-                    .ThenInclude(p => p.GroupPurchases)
-                        .ThenInclude(gp => gp.GroceryItem)
-                .ToListAsync();
-
-            var memberDtos = members.Select(m => new MemberDto
-            {
-                MemberId = m.MemberId,
-                Name = m.Name,
-                AmountPaid = m.Purchases
-                    .SelectMany(p => p.GroupPurchases)
-                    .Sum(gp => gp.GroceryItem.Quantity * gp.GroceryItem.Price),
-                AmountOwed = 0
-            }).ToList();
-
-            float totalAmountSpent = memberDtos.Sum(m => m.AmountPaid);
-
-            foreach (var member in memberDtos)
-            {
-                float originalAmountOwed = totalAmountSpent / totalMembers;
-                member.AmountOwed = originalAmountOwed - member.AmountPaid;
-            }
-
-            return Ok(memberDtos);
+            IEnumerable<MemberDto> MemberDtos = await _memberservice.ListMembers();
+            return Ok(MemberDtos);
         }
 
         /// <summary>
@@ -83,43 +57,16 @@ namespace SplitBasket.Controllers
         [HttpGet("Find/{id}")]
         public async Task<ActionResult<MemberDto>> FindMember(int id)
         {
-            var totalMembers = await _context.Members.CountAsync();
-            if (totalMembers == 0)
-            {
-                return NotFound("No members found.");
-            }
-
-            var member = await _context.Members
-                .Include(m => m.Purchases)
-                    .ThenInclude(p => p.GroupPurchases)
-                        .ThenInclude(gp => gp.GroceryItem)
-                .FirstOrDefaultAsync(m => m.MemberId == id);
+            var member = await _memberservice.FindMember(id);
 
             if (member == null)
             {
-                return NotFound($"Member with ID {id} not found.");
+                return NotFound($"Member with ID {id} doesn't exist");
             }
-
-            float amountPaid = member.Purchases
-                .SelectMany(p => p.GroupPurchases)
-                .Sum(gp => gp.GroceryItem.Quantity * gp.GroceryItem.Price);
-
-            float totalAmountSpent = await _context.GroupPurchases
-                .Where(gp => gp.PurchaseId.HasValue)
-                .SumAsync(gp => gp.GroceryItem.Quantity * gp.GroceryItem.Price);
-
-            float originalAmountOwed = totalAmountSpent / totalMembers;
-            float finalAmountOwed = originalAmountOwed - amountPaid;
-
-            var memberDto = new MemberDto
+            else
             {
-                MemberId = member.MemberId,
-                Name = member.Name,
-                AmountPaid = amountPaid,
-                AmountOwed = finalAmountOwed
-            };
-
-            return Ok(memberDto);
+                return Ok(member);
+            }
         }
 
         /// <summary>
@@ -137,42 +84,27 @@ namespace SplitBasket.Controllers
         /// api/Members/Update/1 -> Updates a member of id 1
         /// </example>
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateMember(int id, UpdMemberDto updatememberDto)
+        [Authorize]
+        public async Task<IActionResult> UpdateMember(int id, UpdMemberDto updateMemberDto)
         {
-            if (id != updatememberDto.MemberId)
+            if (id != updateMemberDto.MemberId)
             {
-                return BadRequest("Member ID mismatch.");
+                return BadRequest(new { message = "Member ID mismatch." });
+            }
+            ServiceResponse response = await _memberservice.UpdateMember(id, updateMemberDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
+            {
+                return NotFound(new { error = "Member not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the member." });
             }
 
-            var member = await _context.Members.FindAsync(id);
-            if (member == null)
-            {
-                return NotFound("Member not found.");
-            }
-
-            member.Name = updatememberDto.Name;
-            member.EmailId = updatememberDto.EmailId;
-
-            _context.Entry(member).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MemberExists(id))
-                {
-                    return NotFound("Member not found after concurrency check.");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok($"Member {id} updated successfully.");
+            return Ok(new { message = $"Member with ID {id} updated successfully." });
         }
+
 
         /// <summary>
         /// Adds a Member in the Members table
@@ -191,32 +123,21 @@ namespace SplitBasket.Controllers
         /// api/Members/Add -> Add the Member in the Members table
         /// </example>
         [HttpPost("Add")]
-        public async Task<ActionResult<AddMemberDto>> AddMember(AddMemberDto addmemberDto)
+        public async Task<ActionResult> AddMember(AddMemberDto addmemberDto)
         {
-            var existingMember = await _context.Members.FirstOrDefaultAsync(m => m.EmailId == addmemberDto.EmailId);
-            if (existingMember != null)
+          
+            ServiceResponse response = await _memberservice.AddMember(addmemberDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                return BadRequest("Member already exists.");
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the member." });
             }
 
-            Member member = new Member()
+            return CreatedAtAction("FindMember", new { id = response.CreatedId }, new
             {
-                Name = addmemberDto.Name,
-                EmailId = addmemberDto.EmailId
-            };
-
-            _context.Members.Add(member);
-            await _context.SaveChangesAsync();
-
-            
-            var responseDto = new AddMemberDto()
-            {
-                Name = member.Name,
-                EmailId = member.EmailId
-            };
-
-            return CreatedAtAction(nameof(FindMember), new { id = member.MemberId },
-            new { message = $"Member {member.MemberId} added successfully.", memberId = member.MemberId });
+                message = $"Member added successfully with ID {response.CreatedId}",
+                memberId = response.CreatedId
+            });
         }
 
 
@@ -233,23 +154,26 @@ namespace SplitBasket.Controllers
         /// api/Members/Delete/1 -> Deletes the member associated with id 1
         /// </example>
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteMember(int id)
+        [Authorize]
+        public async Task<ActionResult> DeleteMember(int id)
         {
-            var member = await _context.Members.FindAsync(id);
-            if (member == null)
+            
+            ServiceResponse response = await _memberservice.DeleteMember(id);
+
+            
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Member not found.");
+                return NotFound(new { error = "Member not found." });
+            }
+        
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the member." });
             }
 
-            _context.Members.Remove(member);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Member {id} deleted successfully.");
+            
+            return Ok(new { message = $"Member with ID {id} deleted successfully." });
         }
 
-        private bool MemberExists(int id)
-        {
-            return _context.Members.Any(e => e.MemberId == id);
-        }
     }
 }

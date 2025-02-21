@@ -1,0 +1,39 @@
+﻿@model SplitBasket.Models.GroceryItemDto
+
+@{
+    ViewData["Title"] = "Grocery Item Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Grocery Item Info -->
+<div>
+    <strong>Id:</strong> @Model.ItemId
+</div>
+<div>
+    <strong>Name:</strong> @Model.Name
+</div>
+<div>
+    <strong>Quantity:</strong> @Model.Quantity
+</div>
+<div>
+    <strong>Unit Price:</strong> @Model.UnitPrice
+</div>
+<div>
+    <strong>Date Purchased:</strong> @Model.DatePurchased
+</div>
+<div>
+    <strong>Purchased By:</strong> @Model.MemberName
+</div>
+<div>
+    <strong>Total Amount:</strong> @Model.TotalAmount
+</div>
+
+
+<hr />
+
+<a asp-action="List" class="btn btn-primary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.ItemId" class="btn btn-secondary">Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.ItemId" class="btn btn-danger">Delete</a>
+
+<hr />

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SplitBasket.Data;
 using SplitBasket.Models;
+using SplitBasket.Interfaces;
+using SplitBasket.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SplitBasket.Controllers
 {
@@ -14,11 +17,11 @@ namespace SplitBasket.Controllers
     [ApiController]
     public class GroceryItemsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGroceryItemService _groceryitemservice;
 
-        public GroceryItemsController(ApplicationDbContext context)
+        public GroceryItemsController(IGroceryItemService context)
         {
-            _context = context;
+            _groceryitemservice = context;
         }
 
         /// <summary>
@@ -32,27 +35,12 @@ namespace SplitBasket.Controllers
         /// GET: api/GroceryItems -> [{ItemId:1, Name: "Milk", Quantity: 2, UnitPrice: 15, TotalAmount: 30, MemberName: "John", DatePurchased: "2025-02-01"}]
         /// </example>
         [HttpGet("List")]
-        public async Task<ActionResult<IEnumerable<GroceryItemDto>>> GetGroceryItems()
+        public async Task<ActionResult<IEnumerable<GroceryItemDto>>> ListGroceryItems()
         {
-            var groceryItems = await _context.GroceryItems
-                .Include(g => g.GroupPurchases)
-                .ThenInclude(gp => gp.Purchase)
-                .ThenInclude(p => p.Member)
-                .ToListAsync();
-
-            var groceryItemDtos = groceryItems.Select(g => new GroceryItemDto
-            {
-                ItemId = g.ItemId,
-                Name = g.Name,
-                Quantity = g.Quantity,
-                UnitPrice = g.Price,
-                TotalAmount =(int)( g.Quantity * g.Price),
-                MemberName = g.GroupPurchases.FirstOrDefault()?.Purchase?.Member?.Name ?? "Unknown",
-                DatePurchased = g.GroupPurchases.FirstOrDefault()?.Purchase?.DatePurchased ?? DateOnly.FromDateTime(DateTime.Now)
-            }).ToList();
-
+            IEnumerable<GroceryItemDto> groceryItemDtos = await _groceryitemservice.ListGroceryItems();
             return Ok(groceryItemDtos);
         }
+
 
         /// <summary>
         /// Returns a GroceryItem specified by its {id}, represented by a GroceryItemDto.
@@ -66,32 +54,20 @@ namespace SplitBasket.Controllers
         /// GET: api/GroceryItems/Find/{id} -> {ItemId:1, Name: "Milk", Quantity: 2, UnitPrice: 15, TotalAmount: 30, MemberName: "John", DatePurchased: "2025-02-01"}
         /// </example>
         [HttpGet("Find/{id}")]
-        public async Task<ActionResult<GroceryItemDto>> GetGroceryItem(int id)
+        public async Task<ActionResult<GroceryItemDto>> FindGroceryItem(int id)
         {
-            var groceryItem = await _context.GroceryItems
-                .Include(g => g.GroupPurchases)
-                .ThenInclude(gp => gp.Purchase)
-                .ThenInclude(p => p.Member)
-                .FirstOrDefaultAsync(g => g.ItemId == id);
+            var groceryItem = await _groceryitemservice.FindGroceryItem(id);
 
             if (groceryItem == null)
             {
-                return NotFound();
+                return NotFound($"Grocery item with ID {id} doesn't exist.");
             }
-
-            var groceryItemDto = new GroceryItemDto
+            else
             {
-                ItemId = groceryItem.ItemId,
-                Name = groceryItem.Name,
-                Quantity = groceryItem.Quantity,
-                UnitPrice = groceryItem.Price,
-                TotalAmount = (int)(groceryItem.Quantity * groceryItem.Price),
-                MemberName = groceryItem.GroupPurchases.FirstOrDefault()?.Purchase?.Member?.Name ?? "Unknown",
-                DatePurchased = groceryItem.GroupPurchases.FirstOrDefault()?.Purchase?.DatePurchased ?? DateOnly.FromDateTime(DateTime.Now)
-            };
-
-            return Ok(groceryItemDto);
+                return Ok(groceryItem);
+            }
         }
+
 
         /// <summary>
         /// Updates a GroceryItem specified by its {id}.
@@ -105,43 +81,28 @@ namespace SplitBasket.Controllers
         /// api/GroceryItems/Update/1 -> Updates grocery item with id 1
         /// </example>
         [HttpPut("Update/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateGroceryItem(int id, UpdItemDto groceryItemDto)
         {
             if (id != groceryItemDto.ItemId)
             {
-                return BadRequest("Item ID mismatch.");
+                return BadRequest(new { message = "Item ID mismatch." });
             }
 
-            var groceryItem = await _context.GroceryItems.FindAsync(id);
-            if (groceryItem == null)
+            ServiceResponse response = await _groceryitemservice.UpdateGroceryItem(id, groceryItemDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Grocery item not found.");
+                return NotFound(new { error = "Grocery item not found." });
             }
-
-            groceryItem.Name = groceryItemDto.Name;
-            groceryItem.Quantity = groceryItemDto.Quantity;
-            groceryItem.Price = groceryItemDto.UnitPrice;
-
-            _context.Entry(groceryItem).State = EntityState.Modified;
-
-            try
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroceryItemExists(id))
-                {
-                    return NotFound("Grocery item not found after concurrency check." );
-                }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the grocery item." });
             }
 
-            return Ok($"Grocery item {id} updated successfully.");
+            return Ok(new { message = $"Grocery item with ID {id} updated successfully." });
         }
+
 
         /// <summary>
         /// Adds a new GroceryItem.
@@ -153,36 +114,28 @@ namespace SplitBasket.Controllers
         /// <example>
         /// api/GroceryItems/Add -> Add grocery item
         /// </example>
+
         [HttpPost("Add")]
-        public async Task<ActionResult> AddGroceryItem(AddItemDto groceryItemDto)
+        public async Task<ActionResult> AddGroceryItem([FromBody]AddItemDto groceryItemDto, [FromQuery] int memberId)
         {
-            // Check if the grocery item is valid
-            if (string.IsNullOrEmpty(groceryItemDto.Name) || groceryItemDto.Quantity <= 0 || groceryItemDto.UnitPrice <= 0)
+            if (groceryItemDto == null || memberId <= 0)
             {
-                return BadRequest("Invalid input data for grocery item.");
+                return BadRequest("Invalid input.");
             }
 
-            var groceryItem = new GroceryItem
+            var response = await _groceryitemservice.AddGroceryItem(groceryItemDto, memberId);
+
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                Name = groceryItemDto.Name,
-                Quantity = groceryItemDto.Quantity,
-                Price = groceryItemDto.UnitPrice
-            };
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the grocery item." });
+            }
 
-            _context.GroceryItems.Add(groceryItem);
-            await _context.SaveChangesAsync();
-
-            var responseDto = new
+            // Return success with the ID of the newly created grocery item
+            return CreatedAtAction(nameof(FindGroceryItem), new { id = response.CreatedId }, new
             {
-                message = $"Grocery item '{groceryItem.Name}' added successfully.",
-                itemId = groceryItem.ItemId,
-                name = groceryItem.Name,
-                quantity = groceryItem.Quantity,
-                price = groceryItem.Price
-            };
-
-            return CreatedAtAction(nameof(GetGroceryItem), new { id = groceryItem.ItemId },
-                new { message = $"Member {groceryItem.ItemId} added successfully.", ItemId = groceryItem.ItemId });
+                message = $"Grocery item added successfully with ID {response.CreatedId}",
+                itemId = response.CreatedId
+            });
         }
 
 
@@ -197,23 +150,55 @@ namespace SplitBasket.Controllers
         /// api/GroceryItems/Delete/1 -> Delete grocery item of id 1
         /// </example>
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> DeleteGroceryItem(int id)
+        [Authorize]
+        public async Task<ActionResult> DeleteGroceryItem(int id)
         {
-            var groceryItem = await _context.GroceryItems.FindAsync(id);
-            if (groceryItem == null)
+            
+            ServiceResponse response = await _groceryitemservice.DeleteGroceryItem(id);
+
+            
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Grocery item not found.");
+                return NotFound(new { error = "Grocery item not found." });
+            }
+           
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the grocery item." });
             }
 
-            _context.GroceryItems.Remove(groceryItem);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Grocery item {id} deleted successfully.");
+            
+            return Ok(new { message = $"Grocery item with ID {id} deleted successfully." });
         }
 
-        private bool GroceryItemExists(int id)
+
+
+        /// <summary>
+        /// List of GroceryItem Names purchased by a member.
+        /// </summary>
+        /// <param name="id">The id of the member who purchased</param>
+        /// <returns>
+        /// 200 OK if it runs successfully
+        /// </returns>
+        /// <example>
+        /// GET: api/GroceryItems/ByMember/{memberId} -> gives the list of grocery items purchased by a specific member
+        /// </example>
+        [HttpGet("ByMember/{memberId}")]
+        public async Task<ActionResult<ServiceResponse>> GetGroceryItemsByMemberId(int memberId)
         {
-            return _context.GroceryItems.Any(e => e.ItemId == id);
+            if (memberId <= 0)
+            {
+                return BadRequest("Invalid member ID.");
+            }
+
+            var response = await _groceryitemservice.GetGroceryItemsByMemberId(memberId);
+
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while fetching the grocery items." });
+            }
+
+            return Ok(response);
         }
     }
 }

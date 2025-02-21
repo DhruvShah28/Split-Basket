@@ -1,5 +1,113 @@
 [
   {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Add",
+    "RelativePath": "AddGroceryItem",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Add",
+    "RelativePath": "AddGroceryItem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddItemDto.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AddItemDto.Quantity",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "AddItemDto.UnitPrice",
+        "Type": "System.Single",
+        "IsRequired": false
+      },
+      {
+        "Name": "MemberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Add",
+    "RelativePath": "AddMember",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Add",
+    "RelativePath": "AddMember",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EmailId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Add",
+    "RelativePath": "AddPurchase",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Add",
+    "RelativePath": "AddPurchase",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "DatePurchased",
+        "Type": "System.DateOnly",
+        "IsRequired": false
+      },
+      {
+        "Name": "MemberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "itemIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SplitBasket.Controllers.GroceryItemsController",
     "Method": "AddGroceryItem",
     "RelativePath": "api/GroceryItems/Add",
@@ -11,9 +119,40 @@
         "Name": "groceryItemDto",
         "Type": "SplitBasket.Models.AddItemDto",
         "IsRequired": true
+      },
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsController",
+    "Method": "GetGroceryItemsByMemberId",
+    "RelativePath": "api/GroceryItems/ByMember/{memberId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SplitBasket.Models.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroceryItemsController",
@@ -33,7 +172,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroceryItemsController",
-    "Method": "GetGroceryItem",
+    "Method": "FindGroceryItem",
     "RelativePath": "api/GroceryItems/Find/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -59,7 +198,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroceryItemsController",
-    "Method": "GetGroceryItems",
+    "Method": "ListGroceryItems",
     "RelativePath": "api/GroceryItems/List",
     "HttpMethod": "GET",
     "IsController": true,
@@ -100,7 +239,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "PostGroupPurchase",
+    "Method": "AddGroupPurchase",
     "RelativePath": "api/GroupPurchases/Add",
     "HttpMethod": "POST",
     "IsController": true,
@@ -112,17 +251,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "SplitBasket.Models.GroupPurchaseDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
@@ -142,7 +271,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "GetGroupPurchase",
+    "Method": "FindGroupPurchase",
     "RelativePath": "api/GroupPurchases/Find/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -168,28 +297,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "LinkGroceryItemToPurchase",
-    "RelativePath": "api/GroupPurchases/LinkGroceryItem",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "groceryItemId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "purchaseId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "GetGroupPurchases",
+    "Method": "ListGroupPurchases",
     "RelativePath": "api/GroupPurchases/List",
     "HttpMethod": "GET",
     "IsController": true,
@@ -209,28 +317,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "UnlinkGroceryItemFromPurchase",
-    "RelativePath": "api/GroupPurchases/UnlinkGroceryItem",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "groceryItemId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "purchaseId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SplitBasket.Controllers.GroupPurchasesController",
-    "Method": "PutGroupPurchase",
+    "Method": "UpdateGroupPurchase",
     "RelativePath": "api/GroupPurchases/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -263,17 +350,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "SplitBasket.Models.AddMemberDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SplitBasket.Controllers.MembersController",
@@ -351,7 +428,7 @@
         "IsRequired": true
       },
       {
-        "Name": "updatememberDto",
+        "Name": "updateMemberDto",
         "Type": "SplitBasket.Models.UpdMemberDto",
         "IsRequired": true
       }
@@ -360,7 +437,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.PurchasesController",
-    "Method": "PostPurchase",
+    "Method": "AddPurchase",
     "RelativePath": "api/Purchases/Add",
     "HttpMethod": "POST",
     "IsController": true,
@@ -418,33 +495,7 @@
   },
   {
     "ContainingType": "SplitBasket.Controllers.PurchasesController",
-    "Method": "GetPurchasesByMember",
-    "RelativePath": "api/Purchases/GetPurchasedItemsByMember/{memberId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "memberId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "SplitBasket.Controllers.PurchasesController",
-    "Method": "GetPurchases",
+    "Method": "ListPurchases",
     "RelativePath": "api/Purchases/List",
     "HttpMethod": "GET",
     "IsController": true,
@@ -478,6 +529,326 @@
       {
         "Name": "aupPurchaseDto",
         "Type": "SplitBasket.Models.UpdPurchaseDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "ConfirmDelete",
+    "RelativePath": "DeleteGroceryItem/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Delete",
+    "RelativePath": "DeleteGroceryItem/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "ConfirmDelete",
+    "RelativePath": "DeleteMember/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Delete",
+    "RelativePath": "DeleteMember/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "ConfirmDelete",
+    "RelativePath": "DeletePurchase/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Delete",
+    "RelativePath": "DeletePurchase/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Edit",
+    "RelativePath": "EditGroceryItem/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Edit",
+    "RelativePath": "EditGroceryItem/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ItemId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Quantity",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "UnitPrice",
+        "Type": "System.Single",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Edit",
+    "RelativePath": "EditMember/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Edit",
+    "RelativePath": "EditMember/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "MemberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EmailId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Edit",
+    "RelativePath": "EditPurchase/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Edit",
+    "RelativePath": "EditPurchase/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "PurchaseID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "DatePurchased",
+        "Type": "System.DateOnly",
+        "IsRequired": false
+      },
+      {
+        "Name": "MemberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "Details",
+    "RelativePath": "GroceryItemDetails/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.GroceryItemsPageController",
+    "Method": "List",
+    "RelativePath": "ListGroceryItems",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "List",
+    "RelativePath": "ListMembers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "List",
+    "RelativePath": "ListPurchases",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.MembersPageController",
+    "Method": "Details",
+    "RelativePath": "MemberDetails/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SplitBasket.Controllers.PurchasesPageController",
+    "Method": "Details",
+    "RelativePath": "PurchaseDetails/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
