@@ -94,24 +94,25 @@ This design ensures clear responsibilities for each part of the application, pro
 Follow these steps to set up *SplitBasket* on your local machine:
 
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/Himani1609/SplitBasket.git
-   cd SplitBasket```
+```sh
+git clone https://github.com/Himani1609/SplitBasket.git
+cd SplitBasket
+```
 
 2. Install dependencies:
-  ``` sh
-   dotnet restore
-   ```
+``` sh
+dotnet restore
+```
 3. Configure the database:
-   - Update appsettings.json with your database connection string.
-   - Run migrations:
-   ```sh
-   dotnet ef database update
-     ```
+- Update appsettings.json with your database connection string.
+- Run migrations:
+```sh
+dotnet ef database update
+```
 4. Run the application:
-  ``` sh
-   - dotnet run
-   ```
+``` sh
+- dotnet run
+```
 ## Future Enhancements
 
   - *Add/Remove Member’s Photo*: Allow users to upload and manage photos for group members.
